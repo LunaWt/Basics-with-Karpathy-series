@@ -1,4 +1,5 @@
-# learning_through_karpathy_videos
+# Basics-with-Karpathy-series
+
 
 Language-model fundamentals written by hand, in dependency order, following Karpathy's
 "Neural Networks: Zero to Hero". Nothing here imports a finished implementation of the

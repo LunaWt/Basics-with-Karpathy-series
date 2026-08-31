@@ -1,4 +1,16 @@
+# Local, personal: progress ledger, deferred curriculum, market research
+notes/
+
+# Environment
 .venv/
 python/
+.env
+
+# Python
 __pycache__/
 *.pyc
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store

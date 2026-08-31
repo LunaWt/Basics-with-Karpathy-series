@@ -1,7 +1,6 @@
 import numpy as np
-import random
 
-random.seed(42)
+np.random.seed(42)
 
 file = open('bigram/names.txt', encoding='utf-8')
 words = file.read().splitlines()
@@ -28,20 +27,29 @@ itos = {idx: letter for idx, letter in enumerate(vocab)}
 
 weights = np.random.uniform(-1.0, 1.0, size=(vocab_size, vocab_size))
 
-xs = np.array([x for word in words for x in word[:-1]])
-ys = np.array([x for word in words for x in word[1:]])
+xs = np.array([stoi[x] for word in words for x in word[:-1]])
+ys = np.array([stoi[y] for word in words for y in word[1:]])
+N = len(xs)
 
-x = [0.0 for _ in range(vocab_size)]
-target_idx = stoi[ys[-1]]
-x[stoi[xs[-1]]] = 1.0
+X = np.zeros((N, vocab_size))
+X[np.arange(N), xs] = 1
 
-logits = x @ weights
+logits = X @ weights
 
 softmax_logits = np.exp(logits)
-softmax_logits /= sum(softmax_logits)
+softmax_logits /= np.sum(softmax_logits, axis=1, keepdims=True)
 
-print(target_idx)
-print(stoi[xs[-1]])
-loss = -np.log(softmax_logits[target_idx])
+loss = -np.log(softmax_logits[np.arange(N), ys]).mean()
+
 print(loss)
 print(vocab)
+
+
+
+
+for i, item in enumerate(xs):
+    if xs[i] == 24:
+        print(logits[i] == weights[24])
+        break
+
+print(xs[:5])
